@@ -7,8 +7,8 @@ let itemOrdered = []
 document.addEventListener('click', (e) => {
     if(e.target.dataset.add) {
         addToOrderClick(e.target.dataset.add) 
-    } else if (e.target.dataset.payment){
-        
+    } else if (e.target.dataset.closemodal){
+        orderModalHtml.style.display = 'none'
     }
      
       
@@ -44,7 +44,6 @@ const addToOrderClick = (itemId) => {
     orderItem.style.display = 'block'
      let orderedItemList = document.getElementById('ordered-items-list')
     let orderedItemsHtml = ``
-    let priceTotal = ``
        const targetItem = menuArray.filter((item) => {
         return itemId == item.id
        })[0]
@@ -52,7 +51,12 @@ const addToOrderClick = (itemId) => {
        itemOrdered.forEach((item) => {
         orderedItemsHtml += `
                       <span class='span-list-item'>
-                         <span>${item.name} </span> 
+                      <span>
+                            <span>${item.name} </span> 
+                            <span data-remove=${item.id} style="font-size: 10px; 
+                                    color:#BBBBBB;"
+                            > remove </span>
+                        </span
                           <span> $ ${item.price} </span>
                       </span> 
        ` 
@@ -121,6 +125,8 @@ const addToOrderClick = (itemId) => {
             }, 12000)
             orderModalHtml.style.display = 'none'
         }
+
+        paymentForm.reset();
         }
            
            

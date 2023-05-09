@@ -31,7 +31,10 @@
             </div>
             <div id="order-modal">
                 <form id="payment-form">
-                    <h3 class="modal-heading">Enter card details</h3>
+                    <div class="modal-heading-container">
+                        <h3 class="modal-heading">Enter card details</h3>
+                        <button class="modal-close-btn" id="modal-close-btn" data-closemodal ="close">X</button>
+                    </div>
                     <div class="inputs">
                         <input type="text" placeholder="Enter your name" name="fullName" required>
                         <input type="text" placeholder="Enter CVV" name="cvv" required>

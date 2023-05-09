@@ -43,6 +43,13 @@ header{
     margin-left:40px;
    
 }
+.modal-heading-container{
+    display: flex;
+    justify-content: space-around;
+}
+.modal-heading{
+    margin-left: 65px;
+}
 #order-item{
     display:none;
     width: 518px;
