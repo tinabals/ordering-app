@@ -63,6 +63,7 @@ header{
     margin-left:81px;
     padding:10px;
 }
+
 .total-price{
     display:flex;
     justify-content: space-between;
@@ -113,11 +114,15 @@ form{
 
 
 /* Typograpy */
-.order-heading{
+.order-heading,.no-items{
     display:flex;
     place-items: center;
     justify-content: center;
     margin-left:5em;
+}
+
+.no-items{
+    margin-top:2em;
 }
 .total-price-text{
     font-weight: bold;
@@ -196,11 +201,15 @@ input[type="submit"]{
     -o-border-radius:7px;
 }
 
-#order-confirmed{
-    display: none;
+#order-confirmed, .no-items{
     color:#065F46;
     background:#ECFDF5 ;
     padding:10px 15px;
     width:525;
+
+}
+#order-confirmed{
+    display: none;
+   
     text-align: center;
 }

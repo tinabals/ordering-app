@@ -1,6 +1,7 @@
 import {menuArray} from './data.js'
 
 let orderingItems = document.getElementById('ordering-items')
+let orderedItemList = document.getElementById('ordered-items-list')
 let orderItem = document.getElementById('order-item')
 let itemOrdered = []
 
@@ -9,6 +10,8 @@ document.addEventListener('click', (e) => {
         addToOrderClick(e.target.dataset.add) 
     } else if (e.target.dataset.closemodal){
         orderModalHtml.style.display = 'none'
+    } else if (e.target.dataset.remove){
+        removeItem(e.target.dataset.remove)
     }
      
       
@@ -42,7 +45,6 @@ function getOrderingItems(){
 
 const addToOrderClick = (itemId) => {
     orderItem.style.display = 'block'
-     let orderedItemList = document.getElementById('ordered-items-list')
     let orderedItemsHtml = ``
        const targetItem = menuArray.filter((item) => {
         return itemId == item.id
@@ -53,7 +55,7 @@ const addToOrderClick = (itemId) => {
                       <span class='span-list-item'>
                       <span>
                             <span>${item.name} </span> 
-                            <span data-remove=${item.id} style="font-size: 10px; 
+                            <span id="remove-item" data-remove=${item.id} style="font-size: 10px; 
                                     color:#BBBBBB;"
                             > remove </span>
                         </span
@@ -64,9 +66,45 @@ const addToOrderClick = (itemId) => {
            getTotalPrice(itemOrdered)
      
        orderedItemList.innerHTML = orderedItemsHtml
+       
 
     }
     
+    const removeItem = (itemId) => {
+        const removeTargetItem = itemOrdered.filter((item)=> {
+            return itemId === item.id
+        })
+        if (removeTargetItem !== -1) {
+            itemOrdered.splice(removeTargetItem, 1);
+            updateOrderedItems();
+            getTotalPrice(itemOrdered);
+          }
+    }
+
+    const updateOrderedItems = () => {
+        let orderedItemsHtml = '';
+        if (itemOrdered.length == 0 ){
+            orderedItemsHtml += `
+            <div class="no-items">
+              <span> No item on the List </span>
+            </div>  
+            `
+          
+        }
+        itemOrdered.forEach((item) => {
+          orderedItemsHtml += `
+            <span class='span-list-item'>
+              <span>
+                <span>${item.name} </span> 
+                <span id="remove-item" data-remove=${item.id} style="font-size: 10px; color:#BBBBBB;"> remove </span>
+              </span>
+              <span> $ ${item.price} </span>
+            </span> 
+          `;
+        });
+        orderedItemList.innerHTML = orderedItemsHtml;
+      };
+      
 
     const getTotalPrice = (items) => {
       
@@ -74,6 +112,12 @@ const addToOrderClick = (itemId) => {
         items.forEach((item) => {
            priceTotal += item.price
         })
+
+        if(items.length == 0){
+          document.getElementById('totalPrices').innerHTML = ''
+          return;
+
+        }
         document.getElementById('totalPrices').innerHTML = `
             <hr style="width:546px;"
             >
